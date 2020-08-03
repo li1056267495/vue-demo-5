@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>组件使用方法</title>
+    <style>#app {
+        border: 2px solid black;
+        width: 600px;
+        height: 300px;
+        font-weight: 700;
+        font-size: 16px;
+        padding: 3px;
+        margin: 0 auto;
+        margin-top: 100px;
+      }</style>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 需求：点击切换图片 -->
+      <button @click="switchImg">点击切换</button>
+      <my-component :show="show"></my-component>{{show}}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>Vue.component("my-component", {
+  props: ["show"],
+  render: function render(createElement) {
+    var imgSrc;
+
+    if (this.show) {
+      imgSrc = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1596451122326&di=dca1082d5657f709cd1db4ab6cdb07ca&imgtype=0&src=http%3A%2F%2Fa2.att.hudong.com%2F36%2F48%2F19300001357258133412489354717.jpg";
+    } else {
+      imgSrc = "./img/02.png";
+    }
+
+    return createElement("img", {
+      attrs: {
+        src: imgSrc
+      },
+      style: {
+        width: "200px",
+        height: "200px"
+      }
+    });
+  }
+});
+new Vue({
+  el: "#app",
+  data: {
+    show: "true"
+  },
+  methods: {
+    switchImg: function switchImg() {
+      this.show = !this.show;
+    }
+  }
+});</script>
+  </body>
+</html>

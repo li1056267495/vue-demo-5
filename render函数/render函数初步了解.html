@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>组件使用方法</title>
+    <style>
+      #app {
+        border: 2px solid black;
+        width: 600px;
+        height: 300px;
+        font-weight: 700;
+        font-size: 16px;
+        padding: 3px;
+        margin: 0 auto;
+        margin-top: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <child :value="abc">
+        我是一个app
+      </child>
+    </div>
+    <!-- <template id="hod">
+      <div>
+        <h1 v-if="value===1">
+          <slot></slot>
+        </h1>
+        <h2 v-if="value===2">
+          <slot></slot>
+        </h2>
+        <h3 v-if="value===3">
+          <slot></slot>
+        </h3>
+      </div>
+    </template> -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+      //使用vue组件定义
+      //   Vue.component("child", {
+      //     props: ["value"],
+      //     template: "#hod",
+      //   });
+      //使用render函数进行定义组件
+      Vue.component("child", {
+        render(createElement) {
+          return createElement("h" + this.value, this.$slots.default);
+        },
+        props: ["value"],
+      });
+
+      new Vue({
+        el: "#app",
+        data: {
+          abc: 3,
+        },
+      });
+    </script>
+  </body>
+</html>

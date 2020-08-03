@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>组件使用方法</title>
+    <style>
+      #app {
+        border: 2px solid black;
+        width: 600px;
+        height: 300px;
+        font-weight: 700;
+        font-size: 16px;
+        padding: 3px;
+        margin: 0 auto;
+        margin-top: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <!-- <my-component :name="name" @input="oninput"></my-component> -->
+      <my-component :name="name" v-model="name"></my-component>
+      <br />{{name}}
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+      Vue.component("my-component", {
+        props: ["name"],
+        render(createElement) {
+          let self = this; //指的是当前vue实例
+          return createElement("input", {
+            domProps: {
+              value: self.name,
+            },
+            on: {
+              input(event) {
+                self.$emit("input", event.target.value);
+              },
+            },
+          });
+        },
+      });
+
+      new Vue({
+        el: "#app",
+        data: {
+          name: "jack",
+        },
+        // methods: {
+        //   oninput(value) {
+        //     this.name = value;
+        //   },
+        // },
+      });
+    </script>
+  </body>
+</html>
